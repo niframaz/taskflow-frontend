@@ -27,11 +27,10 @@ export class Login {
     if (this.loginForm.invalid) {
       return;
     }
-
+    const { email, password } = this.loginForm.value;
     this.loading = true;
-    this.authService.login(this.loginForm.value).subscribe({
-      next: (response: any) => {
-        localStorage.setItem('token', response.token);
+    this.authService.login(email!, password!).subscribe({
+      next: () => {
         this.router.navigate(['/']);
       },
       error: (error: any) => {
