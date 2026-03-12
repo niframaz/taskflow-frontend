@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 
 export interface User {
   id: string;
@@ -36,7 +36,11 @@ export class Auth {
           localStorage.setItem('token', res.token);
           localStorage.setItem('user', JSON.stringify(res.user));
           this.currentUserSubject.next(res.user);
-        })
+        }),
+        catchError((error) => {
+        console.error('Login failed:', error);
+        return throwError(() => error);
+      })
       );
   }
 
@@ -44,10 +48,10 @@ export class Auth {
     return this.http.post<any>(`${this.baseUrl}/register`,data);
   }
 
-    logout() {
+  logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    this.currentUserSubject.next(null); // clear user
+    this.currentUserSubject.next(null);
   }
   
   get currentUser(): User | null {

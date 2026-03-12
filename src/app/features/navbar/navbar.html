@@ -1,1 +1,8 @@
-<p>navbar works!</p>
+<nav>
+ @if (currentUser) {
+    <span>Welcome, {{ currentUser.name }}</span>
+    <button (click)="logout()">Logout</button>
+  } @else {
+    <button routerLink="/login">Login</button>
+  }
+</nav>
