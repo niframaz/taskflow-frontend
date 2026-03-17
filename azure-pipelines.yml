@@ -1,30 +1,38 @@
-# Node.js with Angular
-# Build a Node.js project that uses Angular.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - main
 
 pool:
   name: Default
 
+variables:
+  NODE_VERSION: '20.x'
+  ANGULAR_APP_OUTPUT: 'dist/taskflowfrontend/browser'
+
 steps:
+
 - task: NodeTool@0
   inputs:
-    versionSpec: '20.x'
+    versionSpec: '$(NODE_VERSION)'
   displayName: 'Install Node.js'
+
+- task: Cache@2
+  inputs:
+    key: 'npm | "$(Agent.OS)" | package-lock.json'
+    path: $(Pipeline.Workspace)/.npm
+  displayName: 'Cache node_modules'
 
 - script: |
     npm install -g @angular/cli
     npm install
-    ng build --prod
-  displayName: 'npm install and build'
+    ng lint
+    ng test --watch=false --browsers=ChromeHeadless
+    ng build --configuration production
+  displayName: 'Install dependencies, lint, test, build'
 
 - task: AzureStaticWebApp@0
   inputs:
     azure_static_web_apps_api_token: $(deployment_token)
-    app_location: "/"
-    output_location: "dist/taskflowfrontend/browser"
+    app_location: "taskflowfrontend"                     # <--- Angular project folder
+    output_location: "$(ANGULAR_APP_OUTPUT)"             # <--- built files
     skip_app_build: true
-  displayName: 'Deploy to Azure Static Web App'
+  displayName: 'Deploy to TaskFlowFrontend Azure Static Web App'
