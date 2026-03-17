@@ -20,3 +20,10 @@ steps:
     npm install
     ng build --prod
   displayName: 'npm install and build'
+
+- task: AzureStaticWebApp@0
+  inputs:
+    azure_static_web_apps_api_token: $(deployment_token)
+    app_location: "/"
+    output_location: "dist/taskflowfrontend/browser"
+  displayName: 'Deploy to Azure Static Web App'
