@@ -34,5 +34,5 @@ steps:
     azure_static_web_apps_api_token: $(deployment_token)
     app_location: "taskflowfrontend"                     # <--- Angular project folder
     output_location: "$(ANGULAR_APP_OUTPUT)"             # <--- built files
-    skip_app_build: true
+    #skip_app_build: true
   displayName: 'Deploy to TaskFlowFrontend Azure Static Web App'
