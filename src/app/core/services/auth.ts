@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment ';
 
 export interface User {
   id: string;
@@ -20,7 +21,7 @@ export interface LoginResponse {
 })
 export class Auth {
   private http = inject(HttpClient);
-  private baseUrl = 'https://localhost:7059/api/User';
+  private baseUrl = `${environment.apiUrl}/User`;
 
   private currentUserSubject = new BehaviorSubject<User | null>(
     JSON.parse(localStorage.getItem('user') || 'null')
@@ -60,5 +61,9 @@ export class Auth {
 
   isLoggedIn(): boolean {
     return !!this.currentUser;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }

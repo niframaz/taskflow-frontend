@@ -33,7 +33,7 @@ export class Login {
     this.authService.login(email!, password!).subscribe({
       next: () => {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-      this.router.navigate([returnUrl]);
+        this.router.navigate([returnUrl]);
       },
       error: (error: any) => {
         console.error('Login error:', error);

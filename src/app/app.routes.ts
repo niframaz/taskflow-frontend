@@ -5,11 +5,20 @@ import { authGuard } from './core/guards/auth-guard';
 import { loginGuard } from './core/guards/login-guard';
 
 export const routes: Routes = [
-  {path: '', component: Home, canActivate: [authGuard],
+  {
+    path: '',
+    component: Home,
+    canActivate: [authGuard],
     children: [
-      { path: 'organizations', loadComponent: () => import('./features/organizations/organization-list/organization-list').then(m => m.OrganizationList) },
-    ]
+      {
+        path: 'organizations',
+        loadComponent: () =>
+          import('./features/organizations/organization-list/organization-list').then(
+            (m) => m.OrganizationList,
+          ),
+      },
+    ],
   },
-  {path: 'login',  component: Login, canActivate: [loginGuard]},
+  { path: 'login', component: Login, canActivate: [loginGuard] },
   { path: '**', redirectTo: '/' },
 ];
