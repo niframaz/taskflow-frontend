@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment ';
 })
 export class Organization {
   private http = inject(HttpClient);
-    private baseUrl = `${environment.apiUrl}/Organization`;
+    private baseUrl = `${environment.apiUrl}/Organizations`;
 
   getOrganizations() {
     return this.http.get<any[]>(`${this.baseUrl}`);

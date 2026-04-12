@@ -21,7 +21,7 @@ export interface LoginResponse {
 })
 export class Auth {
   private http = inject(HttpClient);
-  private baseUrl = `${environment.apiUrl}/User`;
+  private baseUrl = `${environment.apiUrl}/Users`;
 
   private currentUserSubject = new BehaviorSubject<User | null>(
     JSON.parse(localStorage.getItem('user') || 'null')
