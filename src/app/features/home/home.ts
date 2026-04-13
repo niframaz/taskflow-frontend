@@ -1,16 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { Organization } from '../../core/services/organization';
-import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { OrganizationList } from '../organizations/organization-list/organization-list';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [OrganizationList],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
-  private organizationService = inject(Organization);
-  organizations: any[] = [];
-
-  organizations$ = this.organizationService.getOrganizations();
+  
 }

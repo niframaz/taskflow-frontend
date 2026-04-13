@@ -1,1 +1,3 @@
-<p>organization-list works!</p>
+@for (item of organizations$ | async; track item.id) {
+  <app-organization [organization]="item"></app-organization>
+}
