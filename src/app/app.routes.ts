@@ -11,11 +11,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       {
-        path: 'organizations',
+        path: '',
         loadComponent: () =>
           import('./features/organizations/organization-list/organization-list').then(
             (m) => m.OrganizationList,
           ),
+      },
+      {
+        path: 'organizations/:id',
+        loadComponent: () =>
+          import('./features/organizations/organization/organization').then((m) => m.Organization),
       },
     ],
   },

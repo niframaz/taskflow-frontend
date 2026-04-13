@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-organization',
@@ -7,6 +8,14 @@ import { Component, Input } from '@angular/core';
   styleUrl: './organization.scss',
 })
 export class Organization {
-  @Input()
-  organization: any;
+  private route = inject(ActivatedRoute);
+  // @Input()
+  // organization: any;
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log(id);
+
+    // call API using id
+  }
 }
