@@ -12,5 +12,8 @@ export class OrganizationApi {
   getOrganizations() {
     return this.http.get<any[]>(`${this.baseUrl}`);
   }
+  getOrganization(id: number) {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
 
 }

@@ -1,5 +1,5 @@
-  <div>
-    <!-- <h2>{{ organization.name }}</h2>
-    <p>{{ organization.description }}</p> -->
-    org
-  </div>
+@if ($organization$ | async; as org) {
+  <div>{{ org.name }}</div>
+} @else {
+  <div>Loading...</div>
+}
